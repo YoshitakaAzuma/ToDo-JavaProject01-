@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン画面</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .login-input:focus {
+            border-color: #3498db;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .message {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .message.error {
+            color: red;
+        }
+
+        .message.logout {
+            color: blue;
+        }
+
+        .jp {
+            font-family: 'MS Pゴシック';
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2ecc71;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .signup-btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <!-- エラー表示 -->
+        <div th:if="${param.error}" class="message error">
+            <p>usernameまたはpasswordが違います</p>
+        </div>
+        <!-- ログアウト表示 -->
+        <div th:if="${param.logout}" class="message logout">
+            <p>ログアウトしました</p>
+        </div>
+        <form th:action="@{/authentication}" method="post">
+            <input type="text" name="username" class="login-input" placeholder="Username">
+            <input type="password" name="password" class="login-input" placeholder="Password">
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <div class="jp">- - - - - - - - 新規登録 - - - - - - - -</div>
+        <form th:action="@{/signup}" method="get">
+            <button type="submit" class="signup-btn">Sign up</button>
+        </form>
+		<div class="jp">パスワードをお忘れですか？</div>
+		<form th:action 
+    </div>
+</body>
+
+</html>

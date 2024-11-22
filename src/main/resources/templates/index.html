@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<meta charset="UTF-8">
+<title>TodoApp</title>
+
+</head>
+<body>
+	<h1>Todoリスト</h1>
+	
+	<!-- TodoFormのエラーメッセージ表示 -->
+	<div th:if="${updateError != null}"　th:text="${updateError}" style="color:red;">
+	    エラーメッセージ
+	</div>
+	
+    <h3>マイタスク</h3>
+	
+	
+    <form method="post" th:action="@{/todos/updateAll}">
+		
+		<input type="submit" value="一括更新" />
+		
+        <div th:each="todo, iterStat : ${todoForm.todos}">
+            <input type="checkbox" th:name="todos[__${iterStat.index}__].done_flg" value="1"/>
+            <input type="hidden" th:name="todos[__${iterStat.index}__].id" th:value="${todo.id}" />
+            <input type="text" th:name="todos[__${iterStat.index}__].title" th:value="${todo.title}" />
+            <input type="date" th:name="todos[__${iterStat.index}__].time_limit" th:value="${todo.time_limit}" />
+        </div>
+		
+		<h3>完了済み</h3>
+		
+		<div th:each="todo, iterStat : ${todoForm.doneTodos}">
+		    <input type="checkbox" th:name="doneTodos[__${iterStat.index}__].done_flg" checked value="1"/>
+		    <input type="hidden" th:name="doneTodos[__${iterStat.index}__].id" th:value="${todo.id}" />
+		    <input type="text" th:name="doneTodos[__${iterStat.index}__].title" th:value="${todo.title}" style="text-decoration:line-through"/>
+		    <input type="date" th:name="doneTodos[__${iterStat.index}__].time_limit" th:value="${todo.time_limit}" />
+		</div>
+    </form>
+	
+    <h3>新しいタスクを追加</h3>
+	
+	<!-- TodoFormのエラーメッセージ表示 -->
+	<div th:if="${addError != null}"　th:text="${addError}" style="color:red;">
+		 エラーメッセージ
+	</div>
+	
+    <form method="post" th:action="@{/todos/add}">
+		<input type="hidden" name="user_id" th:value="${userId}">
+        <input type="text" name="title"/>
+        <input type="date" name="time_limit"/>
+        <input type="submit" value="追加"/>
+    </form>
+    
+    <form method="post" th:action="@{/todos/delete}">
+		<input type="hidden" name="user_id" th:value="${userId}">
+        <input type="submit" value="完了済みを削除">
+    </form>
+	
+	<a th:href="@{/}">メニュー画面へ</a>
+</body>
+</html>
