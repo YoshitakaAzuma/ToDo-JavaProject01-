@@ -22,11 +22,16 @@ public class TodoServiceImpl implements TodoService {
 
 	@Override
 	public List<Todo> findAllTodo(int user_id) {
+		System.out.println("selectAll");
+		for (Todo todo: todoMapper.selectAll(user_id)) {
+			System.out.println(todo.getTime_limit());
+		}
 		return todoMapper.selectAll(user_id);
 	}
 
 	@Override
 	public List<Todo> findInCompleteTodo(int user_id) {
+		System.out.println("findInConpleteTodo");
 		for (Todo todo: todoMapper.selectIncomplete(user_id)) {
 			System.out.println(todo.getTime_limit());
 		}
@@ -35,6 +40,10 @@ public class TodoServiceImpl implements TodoService {
 
 	@Override
 	public List<Todo> findCompleteTodo(int user_id) {
+		System.out.println("selectComplete");
+		for (Todo todo: todoMapper.selectComplete(user_id)) {
+			System.out.println(todo.getTime_limit());
+		}
 		return todoMapper.selectComplete(user_id);
 	}
 

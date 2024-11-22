@@ -16,6 +16,6 @@ CREATE TABLE todo_items (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     done_flg numeric(1) default 0 ,
-    time_limit date,
+    time_limit VARCHAR(20),
     user_id INT REFERENCES users(id) ON DELETE CASCADE
 );
